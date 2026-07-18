@@ -73,7 +73,6 @@ const markUp = images.map(img => `
     <li class="gallery-item">
 	  <a class="gallery-link" href="${img.original}">
 		<img 
-      style = "width:360px"
 		  class="gallery-image" 
 		  src="${img.preview}" 
 		  alt="${img.description}" 
