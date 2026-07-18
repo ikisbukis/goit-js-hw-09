@@ -1,39 +1,49 @@
-
 const KEY_FORM_DATA = "feedback-form-state";
 
+const form = document.querySelector(".feedback-form");
+
 const formData = {
-    email: "",
-    message: ""
+  email: "",
+  message: "",
 };
 
-const form = document.querySelector(".feedback-form");
-const button = document.querySelector("button")
-const saveData = JSON.parse(localStorage.getItem(KEY_FORM_DATA));
+const savedData = JSON.parse(localStorage.getItem(KEY_FORM_DATA));
 
-if(saveData) {
-    form.elements.email.value = saveData.email || "";
-    form.elements.message.value = saveData.message || "";
+if (savedData) {
+  form.elements.email.value = savedData.email || "";
+  form.elements.message.value = savedData.message || "";
 
-    formData.email = saveData.email || "";
-    formData.message = saveData.message || "";
+  formData.email = savedData.email || "";
+  formData.message = savedData.message || "";
 }
 
-form.addEventListener("input", formFunc);
+form.addEventListener("input", onFormInput);
+form.addEventListener("submit", onFormSubmit);
 
-function formFunc(event) {
-    const field = event.target;
+function onFormInput(event) {
+  const field = event.target;
 
-    formData[field.name] = field.value.trim();
-    localStorage.setItem(KEY_FORM_DATA, JSON.stringify(formData))
+  formData[field.name] = field.value.trim();
+
+  localStorage.setItem(KEY_FORM_DATA, JSON.stringify(formData));
 }
 
-form.addEventListener("submit", formSubmit) 
+function onFormSubmit(event) {
+  event.preventDefault();
 
-function formSubmit(event) {
-    event.preventDefault();
-    localStorage.removeItem(KEY_FORM_DATA);
-    form.reset();
+  const { email, message } = event.currentTarget.elements;
+  if (
+    email.value.trim() === "" ||
+    message.value.trim() === ""
+  ) {
+    alert("Fill please all fields");
+    return;
+  }
+  console.log(formData);
 
-    formData.email = "";
-    formData.message = "";
+  localStorage.removeItem(KEY_FORM_DATA);
+  event.currentTarget.reset();
+
+  formData.email = "";
+  formData.message = "";
 }
