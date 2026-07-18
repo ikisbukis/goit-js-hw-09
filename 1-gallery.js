@@ -2,7 +2,6 @@ import"./assets/modulepreload-polyfill-B5Qt9EMX.js";/* empty css                
     <li class="gallery-item">
 	  <a class="gallery-link" href="${o.original}">
 		<img 
-      style = "width:360px"
 		  class="gallery-image" 
 		  src="${o.preview}" 
 		  alt="${o.description}" 
